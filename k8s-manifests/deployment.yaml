@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-nginx-lab
+  namespace: namespace-nginx-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-nginx-lab
+  template:
+    metadata:
+      labels:
+        app: app-nginx-lab
+    spec:
+      containers:
+        - name: cont-nginx-lab
+          image: dcruser/nginx-lab
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 80
+            failureThreshold: 30
+

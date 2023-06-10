@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-nginx-lab
+  namespace: namespace-nginx-lab
+spec:
+  selector:
+    app: app-nginx-lab
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
